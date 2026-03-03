@@ -19,7 +19,7 @@ fn test_get_dir_and_stub() {
 #[test]
 fn test_build_new_path() {
     let base_dir = Path::new("C:\\Data");
-    
+
     let file_path = build_new_path(base_dir, "test.txt", false);
     assert_eq!(file_path, "C:\\Data\\test.txt");
 

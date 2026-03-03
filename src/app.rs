@@ -46,18 +46,18 @@ impl ConverterApp {
     pub fn start_conversion(&mut self, ctx: egui::Context) {
         let input_raw = self.cache.last_input.trim().to_string();
         let output_raw = self.cache.last_output.trim().to_string();
-        
+
         if input_raw.is_empty() { return; }
 
         let source = PathBuf::from(&input_raw);
         let out_folder = if output_raw.is_empty() { None } else { Some(PathBuf::from(&output_raw)) };
-        
+
         let log = self.log_handle.clone();
         let in_ext = self.config.input_format.to_lowercase();
         let out_ext = self.config.output_format.to_lowercase();
         let width = self.config.width.parse::<u32>().unwrap_or(570);
         let height = self.config.height.parse::<u32>().unwrap_or(342);
-        
+
         self.is_running = true;
 
         thread::spawn(move || {
@@ -78,7 +78,7 @@ impl ConverterApp {
             for path in tasks {
                 if path.is_dir() { continue; }
                 let current_ext = path.extension().and_then(|s| s.to_str()).unwrap_or_default().to_lowercase();
-                
+
                 if current_ext == in_ext {
                     let dest = get_output_path(&path, &out_folder, &out_ext);
                     match process_single_file(&path, &dest, width, height, &out_ext) {

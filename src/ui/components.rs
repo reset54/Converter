@@ -7,13 +7,13 @@ use crate::ui::autocomplete;
 fn render_path_row(ui: &mut egui::Ui, label: &str, path: &mut String, is_folder_only: bool) {
     ui.horizontal(|ui| {
         let btn_text = if is_folder_only { "Folder…" } else { "File…" };
-        
+
         if ui.button(btn_text).clicked() {
             let dialog = rfd::FileDialog::new();
-            let result = if is_folder_only { 
-                dialog.pick_folder() 
-            } else { 
-                dialog.pick_file() 
+            let result = if is_folder_only {
+                dialog.pick_folder()
+            } else {
+                dialog.pick_file()
             };
 
             if let Some(p) = result {
@@ -30,7 +30,7 @@ pub fn render_path_settings(ui: &mut egui::Ui, app: &mut ConverterApp) {
     ui.group(|ui| {
         ui.label("Path Settings:");
         ui.add_space(5.0);
-        
+
         render_path_row(ui, "In:", &mut app.cache.last_input, false);
         ui.add_space(8.0);
         render_path_row(ui, "Out:", &mut app.cache.last_output, true);
@@ -42,9 +42,9 @@ pub fn render_controls(ui: &mut egui::Ui, app: &mut ConverterApp, ctx: &egui::Co
     ui.horizontal(|ui| {
         let has_input = !app.cache.last_input.trim().is_empty();
         let can_run = has_input && !app.is_running;
-        
+
         let run_btn = egui::Button::new("Process All").min_size([140.0, 40.0].into());
-        
+
         if ui.add_enabled(can_run, run_btn).clicked() {
             app.start_conversion(ctx.clone());
         }
@@ -109,7 +109,7 @@ pub fn render_dimension_settings(ui: &mut egui::Ui, app: &mut ConverterApp) {
 pub fn render_log_area(ui: &mut egui::Ui, app: &mut ConverterApp) {
     ui.separator();
     ui.label("Process Log:");
-    
+
     egui::ScrollArea::vertical()
         .stick_to_bottom(true)
         .show(ui, |ui| {

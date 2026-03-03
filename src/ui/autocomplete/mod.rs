@@ -9,7 +9,7 @@ use std::io;
 pub fn render_path_input(ui: &mut egui::Ui, label: &str, path_str: &mut String) {
     ui.horizontal(|ui| {
         ui.label(label);
-        
+
         let text_edit = egui::TextEdit::singleline(path_str)
             .hint_text("Enter path...")
             .desired_width(ui.available_width() - 20.0)
@@ -27,14 +27,14 @@ pub fn render_path_input(ui: &mut egui::Ui, label: &str, path_str: &mut String) 
 fn process_autocomplete(ui: &mut egui::Ui, response: &egui::Response, path_str: &mut String, label: &str) {
     let keys = events::consume_navigation_keys(ui);
     let (dir_to_scan, stub) = engine::get_dir_and_stub(path_str);
-    
+
     match engine::fetch_suggestions(&dir_to_scan, &stub) {
         Ok(suggestions) if !suggestions.is_empty() => {
             let mut idx = ui.data_mut(|d| *d.get_temp_mut_or_default::<isize>(response.id));
 
             if keys.up { idx -= 1; }
             if keys.down { idx += 1; }
-            
+
             let current_idx = idx.rem_euclid(suggestions.len() as isize) as usize;
             ui.data_mut(|d| d.insert_temp(response.id, idx));
 
@@ -53,7 +53,7 @@ fn process_autocomplete(ui: &mut egui::Ui, response: &egui::Response, path_str: 
         Err(e) if dir_to_scan.exists() => {
             render_error_tooltip(response, &e); // UI removed from args as response has access to ctx
         }
-        _ => {} 
+        _ => {}
     }
 }
 

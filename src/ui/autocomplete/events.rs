@@ -11,7 +11,7 @@ pub struct InputResult {
 
 pub fn consume_navigation_keys(ui: &mut egui::Ui) -> InputResult {
     InputResult {
-        tab_or_enter: ui.input_mut(|i| i.consume_key(egui::Modifiers::NONE, egui::Key::Tab)) 
+        tab_or_enter: ui.input_mut(|i| i.consume_key(egui::Modifiers::NONE, egui::Key::Tab))
                     || ui.input_mut(|i| i.consume_key(egui::Modifiers::NONE, egui::Key::Enter)),
         up: ui.input_mut(|i| i.consume_key(egui::Modifiers::NONE, egui::Key::ArrowUp)),
         down: ui.input_mut(|i| i.consume_key(egui::Modifiers::NONE, egui::Key::ArrowDown)),

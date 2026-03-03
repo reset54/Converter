@@ -13,7 +13,7 @@ pub fn render_suggestions_window(
     label: &str
 ) {
     let max_height = 300.0;
-    
+
     egui::Window::new(format!("Suggestions for {}", label))
         .fixed_pos(rect.left_bottom())
         .title_bar(false)
@@ -25,14 +25,14 @@ pub fn render_suggestions_window(
                 .show(ui, |ui| {
                     for (i, item) in suggestions.iter().enumerate() {
                         let is_selected = i == (current_idx % suggestions.len());
-                        
+
                         let response = ui.selectable_label(is_selected, &item.name);
-                        
+
                         // Vertical sync: scroll to active element
                         if is_selected {
                             response.scroll_to_me(Some(egui::Align::Center));
                         }
-                        
+
                         if response.clicked() {
                             *path_str = engine::build_new_path(dir_to_scan, &item.name, item.is_dir);
                         }

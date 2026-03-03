@@ -3,9 +3,9 @@ use std::path::Path;
 
 
 pub fn process_single_file(
-    input_file: &Path, 
-    output_file: &Path, 
-    w: u32, 
+    input_file: &Path,
+    output_file: &Path,
+    w: u32,
     h: u32,
     out_ext: &str
 ) -> Result<(), String> {

@@ -52,7 +52,7 @@ pub fn fetch_suggestions(dir: &Path, stub: &str) -> io::Result<Vec<SuggestionIte
 pub fn build_new_path(dir: &Path, name: &str, is_dir: bool) -> String {
     let mut new_path = dir.to_path_buf();
     new_path.push(name);
-    
+
     let mut s = new_path.to_string_lossy().to_string();
     if is_dir && !s.ends_with('\\') && !s.ends_with('/') {
         s.push('\\');

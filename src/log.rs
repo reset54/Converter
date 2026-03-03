@@ -12,12 +12,12 @@ impl Logger {
     pub fn log(handle: &LogHandle, message: impl Into<String>) {
         if let Ok(mut lg) = handle.lock() {
             let msg = message.into();
-            
+
             // Console output for debug
             println!("[LOG]: {}", msg);
-            
+
             lg.push(msg);
-            
+
             if lg.len() > 1000 {
                 lg.remove(0);
             }
