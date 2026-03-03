@@ -1,2 +1,10 @@
-# Converter
-simple converter ( .png -> .bmp )
+# ImagesConverter
+Prerequisites
+
+install cargo Rust toolchain (stable)
+
+Running the App
+Bash
+```
+cargo run
+```
