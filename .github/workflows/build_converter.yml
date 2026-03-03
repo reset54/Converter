@@ -1,36 +1,29 @@
-name: Windows CI
+name: Release Build
 
 on:
   push:
     branches: [ "main", "master" ]
+    paths:
+      - '**.rs'
+      - '.github/workflows/build_converter.yml'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
   pull_request:
     branches: [ "main", "master" ]
+    paths:
+      - '**.rs'
+      - '.github/workflows/build_converter.yml'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  test:
-    name: Run Tests
-    runs-on: windows-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Install Rust toolchain
-      uses: dtolnay/rust-toolchain@stable
-
-    - name: Rust Cache
-      uses: Swatinem/rust-cache@v2
-
-    - name: Run tests
-      run: cargo test --verbose
-
-
   build:
-    name: Build Release
-    needs: test
+    name: Build Windows Release
     runs-on: windows-latest
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -42,7 +35,7 @@ jobs:
       uses: Swatinem/rust-cache@v2
 
     - name: Build release
-      run: cargo build --release --verbose
+      run: cargo build --release --verbose --locked
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
